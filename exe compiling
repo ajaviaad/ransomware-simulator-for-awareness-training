@@ -1,0 +1,2 @@
+pip install pyinstaller
+pyinstaller --onefile --noconsole advanced_fake_exe.py
