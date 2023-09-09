@@ -1,0 +1,4 @@
+Set up a dummy_data folder (or modify TARGET_DIR to point to your mock data directory).
+Run the Flask app.
+Navigate to the Flask server address (usually http://127.0.0.1:5000/) to see the ransom note.
+Use /start_simulation to "encrypt" files and /end_simulation to "decrypt" them.
