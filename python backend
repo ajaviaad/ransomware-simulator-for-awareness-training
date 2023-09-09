@@ -1,0 +1,50 @@
+from flask import Flask, render_template
+import os
+import base64
+
+app = Flask(__name__)
+
+TARGET_DIR = './dummy_data'
+EXTENSION = '.fakesecure'  # custom extension for "encrypted" files
+
+@app.route('/')
+def index():
+    return render_template('ransom_note.html')
+
+def fake_encrypt(filepath):
+    with open(filepath, 'rb') as f:
+        data = f.read()
+        fake_encrypted = base64.b64encode(data)
+    
+    with open(filepath + EXTENSION, 'wb') as f:
+        f.write(fake_encrypted)
+    os.remove(filepath)
+
+def fake_decrypt(filepath):
+    with open(filepath, 'rb') as f:
+        data = f.read()
+        decrypted = base64.b64decode(data)
+    
+    with open(filepath.replace(EXTENSION, ''), 'wb') as f:
+        f.write(decrypted)
+    os.remove(filepath)
+
+@app.route('/start_simulation')
+def start_simulation():
+    for root, _, files in os.walk(TARGET_DIR):
+        for file in files:
+            filepath = os.path.join(root, file)
+            fake_encrypt(filepath)
+    return "Simulation started!"
+
+@app.route('/end_simulation')
+def end_simulation():
+    for root, _, files in os.walk(TARGET_DIR):
+        for file in files:
+            if file.endswith(EXTENSION):
+                filepath = os.path.join(root, file)
+                fake_decrypt(filepath)
+    return "Simulation ended!"
+
+if __name__ == '__main__':
+    app.run(debug=True)
