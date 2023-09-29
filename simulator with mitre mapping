@@ -10,6 +10,12 @@ FAKE_MODULES_URLS = [
     "https://1idgroup.com",
 ]
 
+def functional_module():
+    print("\n[T1559.002 - Inter-Process Communication: Dynamic Data Exchange] Running functional module...")
+    print("Detail: Adversaries may abuse dynamic data exchange (DDE) to execute arbitrary commands, such as for execution of malicious payloads.")
+    time.sleep(2)  # Pausing for 2 seconds to simulate the functional module action
+    print("Functional module completed!")
+
 def download_fake_modules():
     print("\n[T1105 - Ingress Tool Transfer] Starting to download fake modules...\n")
     print("Detail: Adversaries might upload malicious software, scripts, or other tools to a target system prior to use during post-compromise operations.")
@@ -41,9 +47,14 @@ def fake_exfiltration():
     time.sleep(3)  # Pausing for 3 seconds to simulate data exfiltration
     print("Data exfiltration completed!")
 
-def fake_decrypt():
-    print("\n[T1070.004 - File Deletion] Now decrypting files...")
-    print("Detail: Adversaries might attempt to make files or data inaccessible by renaming or otherwise modifying them. The intent is to render data useless.")
+def delete_artifacts():
+    print("\n[T1070.004 - File Deletion] Deleting malicious artifacts...")
+    print("Detail: After compromising a system, adversaries might attempt to remove any evidence or artifacts to evade detection.")
+    time.sleep(2)  # Pausing for 2 seconds to simulate artifact deletion
+    print("Artifact deletion completed!")
+
+def decrypt_files():
+    print("\n[Decryption Process] Now decrypting files...")
     time.sleep(2)  # Pausing for 2 seconds to simulate decryption
     for root, _, files in os.walk(TARGET_DIR):
         for file in files:
@@ -66,11 +77,13 @@ def display_ransom_note():
     input(message)
 
 def main():
-    download_fake_modules()  # Simulate module download at the start
+    functional_module()
+    download_fake_modules()  
     fake_encrypt()
     fake_exfiltration()
     display_ransom_note()
-    fake_decrypt()
+    delete_artifacts()
+    decrypt_files()
 
 if __name__ == "__main__":
     main()
