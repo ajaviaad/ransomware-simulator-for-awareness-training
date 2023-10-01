@@ -75,17 +75,6 @@ def delete_artifacts():
     time.sleep(2)
     print("Artifact deletion completed!")
 
-def decrypt_files():
-    print("\n[Decryption Process] Now decrypting files...")
-    time.sleep(2)
-    for root, _, files in os.walk(TARGET_DIR):
-        for file in files:
-            if file.endswith(FAKE_EXTENSION):
-                src = os.path.join(root, file)
-                dst = src.replace(FAKE_EXTENSION, '')
-                os.rename(src, dst)
-    print("Decryption completed!")
-
 def display_ransom_note():
     message = """
     ---------------------
@@ -93,7 +82,7 @@ def display_ransom_note():
     ---------------------
     Detail: Adversaries might encrypt files found on the system to make them inaccessible, aiming for disruption or ransom.
     Your files have been 'encrypted'!
-    To 'decrypt' them, press Enter.
+    To 'see next steps of adversaries', press Enter.
     Remember, always be cautious with files from unknown sources!
     """
     input(message)
@@ -106,7 +95,6 @@ def main():
     display_ransom_note()
     fake_exfiltration()
     delete_artifacts()
-    decrypt_files()
 
 if __name__ == "__main__":
     main()
