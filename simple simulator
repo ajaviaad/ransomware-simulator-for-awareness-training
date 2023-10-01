@@ -10,8 +10,37 @@ FAKE_MODULES_URLS = [
     "https://1idgroup.com",
 ]
 
+def functional_module():
+    print("\n[T1559.002 - Inter-Process Communication: Dynamic Data Exchange] Running functional module...")
+    print("Detail: Adversaries may abuse dynamic data exchange (DDE) to execute arbitrary commands.")
+    time.sleep(2)
+    print("Functional module completed!")
+
+def lateral_movement():
+    print("\n[T1018 - Remote System Discovery] Discovering network...")
+    print("Detail: Adversaries may use various tools to identify other systems on the network.")
+    time.sleep(2)
+
+    print("\n[T1046 - Network Service Scanning] Finding devices...")
+    print("Detail: Adversaries may scan a network to enumerate connected devices and services.")
+    time.sleep(2)
+
+    print("\n[T1110 - Brute Force: Password Guessing] Obtaining credentials...")
+    print("Detail: Adversaries may use brute force techniques to attempt unauthorized access to accounts.")
+    time.sleep(2)
+
+    print("\n[T1068 - Privilege Escalation] Escalating privileges...")
+    print("Detail: Adversaries may exploit software vulnerabilities in an effort to escalate privileges.")
+    time.sleep(2)
+
+    print("\n[T1059.003 - Command and Scripting Interpreter: Windows Command Shell] Executing malicious code file...")
+    print("Detail: Adversaries may abuse command-line interfaces to run malicious commands or payloads.")
+    time.sleep(2)
+    print("Lateral movement completed!")
+
 def download_fake_modules():
-    print("Starting to download fake modules...\n")
+    print("\n[T1105 - Ingress Tool Transfer] Starting to download fake modules...")
+    print("Detail: Adversaries might upload malicious software to a target system for later execution.")
     for url in FAKE_MODULES_URLS:
         try:
             response = requests.get(url, timeout=10)
@@ -19,13 +48,14 @@ def download_fake_modules():
                 print(f"Successfully downloaded module from {url}!")
             else:
                 print(f"Failed to download module from {url}.")
-            time.sleep(1)  # Pausing for 1 second to simulate the download
+            time.sleep(1)
         except requests.RequestException:
             print(f"Error while trying to download from {url}.")
 
 def fake_encrypt():
-    print("\nNow encrypting files...")
-    time.sleep(2)  # Pausing for 2 seconds to simulate encryption
+    print("\n[T1022 - Data Encrypted] Now encrypting files for impact...")
+    print("Detail: An adversary might encrypt data to affect its confidentiality or as a form of extortion.")
+    time.sleep(2)
     for root, _, files in os.walk(TARGET_DIR):
         for file in files:
             src = os.path.join(root, file)
@@ -33,9 +63,21 @@ def fake_encrypt():
             os.rename(src, dst)
     print("Encryption completed!")
 
-def fake_decrypt():
-    print("\nNow decrypting files...")
-    time.sleep(2)  # Pausing for 2 seconds to simulate decryption
+def fake_exfiltration():
+    print("\n[T1041 - Exfiltration Over Command and Control Channel] Exfiltrating data...")
+    print("Detail: Adversaries might exfiltrate data over a different protocol from the command and control server.")
+    time.sleep(3)
+    print("Data exfiltration completed!")
+
+def delete_artifacts():
+    print("\n[T1070.004 - File Deletion] Deleting malicious artifacts...")
+    print("Detail: Adversaries might attempt to remove any evidence or artifacts to evade detection.")
+    time.sleep(2)
+    print("Artifact deletion completed!")
+
+def decrypt_files():
+    print("\n[Decryption Process] Now decrypting files...")
+    time.sleep(2)
     for root, _, files in os.walk(TARGET_DIR):
         for file in files:
             if file.endswith(FAKE_EXTENSION):
@@ -47,8 +89,9 @@ def fake_decrypt():
 def display_ransom_note():
     message = """
     ---------------------
-    RANSOMWARE SIMULATION
+    RANSOMWARE SIMULATION [T1486 - Data Encrypted for Impact]
     ---------------------
+    Detail: Adversaries might encrypt files found on the system to make them inaccessible, aiming for disruption or ransom.
     Your files have been 'encrypted'!
     To 'decrypt' them, press Enter.
     Remember, always be cautious with files from unknown sources!
@@ -56,10 +99,14 @@ def display_ransom_note():
     input(message)
 
 def main():
-    download_fake_modules()  # Simulate module download at the start
+    functional_module()
+    lateral_movement()
+    download_fake_modules()  
     fake_encrypt()
     display_ransom_note()
-    fake_decrypt()
+    fake_exfiltration()
+    delete_artifacts()
+    decrypt_files()
 
 if __name__ == "__main__":
     main()
