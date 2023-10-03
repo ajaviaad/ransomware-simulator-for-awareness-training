@@ -1,0 +1,97 @@
+import os
+import requests
+
+TARGET_DIR = './dummy_data'
+FAKE_EXTENSION = '.locked'
+FAKE_MODULES_URLS = [
+    "https://1idgroup.com",
+    "https://1idgroup.com",
+    "https://1idgroup.com",
+]
+
+def press_enter_to_continue():
+    input("\nPress Enter to continue...")
+
+def functional_module():
+    print("\n[T1559.002 - Inter-Process Communication: Dynamic Data Exchange] Running functional module...")
+    print("Detail: Adversaries may abuse dynamic data exchange (DDE) to execute arbitrary commands.")
+    press_enter_to_continue()
+
+def lateral_movement():
+    print("\n[T1018 - Remote System Discovery] Discovering network...")
+    print("Detail: Adversaries may use various tools to identify other systems on the network.")
+    press_enter_to_continue()
+
+    print("\n[T1046 - Network Service Scanning] Finding devices...")
+    print("Detail: Adversaries may scan a network to enumerate connected devices and services.")
+    press_enter_to_continue()
+
+    print("\n[T1003.001 - OS Credential Dumping: LSASS Memory] Obtaining credentials through credential stealing...")
+    print("Detail: Adversaries might attempt to extract credentials from memory or the Windows credential store.")
+    press_enter_to_continue()
+
+    print("\n[T1068 - Privilege Escalation] Escalating privileges...")
+    print("Detail: Adversaries may exploit software vulnerabilities in an effort to escalate privileges.")
+    press_enter_to_continue()
+
+    print("\n[T1059.003 - Command and Scripting Interpreter: Windows Command Shell] Executing malicious code file...")
+    print("Detail: Adversaries may abuse command-line interfaces to run malicious commands or payloads.")
+    press_enter_to_continue()
+
+def download_fake_modules():
+    print("\n[T1105 - Ingress Tool Transfer] Starting to download fake modules...")
+    print("Detail: Adversaries might upload malicious software to a target system for later execution.")
+    for url in FAKE_MODULES_URLS:
+        try:
+            response = requests.get(url, timeout=10)
+            if response.status_code == 200:
+                print(f"Successfully downloaded module from {url}!")
+            else:
+                print(f"Failed to download module from {url}.")
+        except requests.RequestException:
+            print(f"Error while trying to download from {url}.")
+    press_enter_to_continue()
+
+def fake_encrypt():
+    print("\n[T1022 - Data Encrypted] Now encrypting files for impact...")
+    print("Detail: An adversary might encrypt data to affect its confidentiality or as a form of extortion.")
+    for root, _, files in os.walk(TARGET_DIR):
+        for file in files:
+            src = os.path.join(root, file)
+            dst = src + FAKE_EXTENSION
+            os.rename(src, dst)
+    press_enter_to_continue()
+
+def fake_exfiltration():
+    print("\n[T1041 - Exfiltration Over Command and Control Channel] Exfiltrating data...")
+    print("Detail: Adversaries might exfiltrate data over a different protocol from the command and control server.")
+    press_enter_to_continue()
+
+def delete_artifacts():
+    print("\n[T1070.004 - File Deletion] Deleting malicious artifacts...")
+    print("Detail: Adversaries might attempt to remove any evidence or artifacts to evade detection.")
+    press_enter_to_continue()
+
+def display_ransom_note():
+    message = """
+    ---------------------
+    RANSOMWARE SIMULATION [T1486 - Data Encrypted for Impact]
+    ---------------------
+    Detail: Adversaries might encrypt files found on the system to make them inaccessible, aiming for disruption or ransom.
+    Your files have been 'encrypted'!
+    To 'decrypt' them, press Enter.
+    Remember, always be cautious with files from unknown sources!
+    """
+    input(message)
+
+def main():
+    functional_module()
+    lateral_movement()
+    download_fake_modules()  
+    fake_encrypt()
+    display_ransom_note()
+    fake_exfiltration()
+    delete_artifacts()
+
+if __name__ == "__main__":
+    main()
