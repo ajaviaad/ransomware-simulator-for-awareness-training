@@ -71,6 +71,7 @@ def delete_artifacts():
     print("\n[T1070.004 - File Deletion] Deleting malicious artifacts...")
     print("Detail: Adversaries might attempt to remove any evidence or artifacts to evade detection.")
     press_enter_to_continue()
+    print("Deletion complete")
 
 def display_ransom_note():
     message = """
